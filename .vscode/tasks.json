@@ -1,0 +1,50 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "docker-build",
+			"label": "docker-build",
+			"platform": "node",
+			"dockerBuild": {
+				"dockerfile": "${workspaceFolder}/Dockerfile",
+				"context": "${workspaceFolder}",
+				"pull": true,
+				"buildArgs": {
+					"SSH_KEY": "$(cat $HOME/.ssh/id_rsa)",
+					"SSH_KEY_PUB": "$(cat $HOME/.ssh/id_rsa.pub)"
+				}
+			}
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: release",
+			"dependsOn": [
+				"docker-build"
+			],
+			"platform": "node"
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: debug",
+			"dependsOn": [
+				"docker-build"
+			],
+			"dockerRun": {
+				"network": "host",
+				"ports": [{
+					"containerPort": 3000,
+					"hostPort": 3000
+				}],
+				"env": {
+					"DEBUG": "*",
+					"NODE_ENV": "development",
+					"CHIA_EXECUTABLE": "/home/jack/chia-blockchain/venv/bin/chia",
+					"SSH_USER": "jack"
+				}
+			},
+			"node": {
+				"enableDebugging": true
+			}
+		}
+	]
+}
