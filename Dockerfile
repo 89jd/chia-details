@@ -1,5 +1,4 @@
-ARG ARCH
-FROM ${ARCH}node:12-alpine
+FROM node:12-alpine
 
 ARG SSH_KEY
 
@@ -23,10 +22,8 @@ RUN echo "$SSH_KEY" > /root/.ssh/id_rsa
 
 RUN echo -e "Host localhost\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
-RUN chown node /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 
-RUN chown node /root/.ssh/known_hosts
 RUN chmod 400 /root/.ssh/id_rsa
 
 CMD ["node", "index.js"]
