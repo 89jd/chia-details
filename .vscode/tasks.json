@@ -10,8 +10,8 @@
 				"context": "${workspaceFolder}",
 				"pull": true,
 				"buildArgs": {
-					"SSH_KEY": "$(cat $HOME/.ssh/id_rsa)",
-					"SSH_KEY_PUB": "$(cat $HOME/.ssh/id_rsa.pub)"
+					"SSH_PRIV_KEY": "$(cat $HOME/.ssh/id_rsa)",
+					"SSH_PUB_KEY": "$(cat $HOME/.ssh/id_rsa.pub)"
 				}
 			}
 		},
