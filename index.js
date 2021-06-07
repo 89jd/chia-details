@@ -17,7 +17,7 @@ async function getChiaFarmDetails() {
       return stdout.trim().split('\n')
             .map((value) => value.split(":"))
             .filter((value) => value.length == 2)
-            .map((value) => [value[0].toLowerCase().replace(" ", ), value[1].substr(1)])
+            .map((value) => [value[0].toLowerCase().replace(" ", "_"), value[1].substr(1)])
             .reduce((map, value) => (map[value[0]] = value[1], map), {})
     }
 }
